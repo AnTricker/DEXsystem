@@ -1,0 +1,3 @@
+[service]
+name = "dexsystem"
+startCommand = "bash start_zeabur.sh"

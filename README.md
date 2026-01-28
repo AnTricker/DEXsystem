@@ -22,14 +22,15 @@
 
 - **Backend**: Python, FastAPI, SQLAlchemy
 - **Frontend**: Streamlit, Pandas
-- **Database**: SQLite (輕量化、易於備份)
+- **Database**: SQLite (本地開發) / PostgreSQL (生產環境)
 - **Environment**: 支援 Docker 或 Python Virtual Environment 部署
+- **Deployment**: Zeabur (詳見 [ZEABUR_SETUP.md](ZEABUR_SETUP.md))
 
 ## 快速開始
 
 ### 1. 環境需求
 確認您的系統已安裝此版本或更高的 Python：
-- Python 3.9+
+- Python 3.10+
 
 ### 2. 安裝步驟
 

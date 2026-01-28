@@ -1,15 +1,22 @@
 from sqlalchemy import create_engine
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
+from decouple import config
 
-# SQLite 資料庫設定
-SQLALCHEMY_DATABASE_URL = "sqlite:///./dexsystem.db"
+# 優先使用環境變數的 DATABASE_URL (Zeabur PostgreSQL)
+# 本地開發則使用 SQLite
+SQLALCHEMY_DATABASE_URL = config('DATABASE_URL', default='sqlite:///./dexsystem.db')
 
-# 建立資料庫引擎
-engine = create_engine(
-    SQLALCHEMY_DATABASE_URL, 
-    connect_args={"check_same_thread": False}  # SQLite 需要此設定
-)
+# 根據資料庫類型設定不同的 connect_args
+if SQLALCHEMY_DATABASE_URL.startswith('sqlite'):
+    # SQLite 需要 check_same_thread
+    engine = create_engine(
+        SQLALCHEMY_DATABASE_URL,
+        connect_args={"check_same_thread": False}
+    )
+else:
+    # PostgreSQL 不需要 check_same_thread
+    engine = create_engine(SQLALCHEMY_DATABASE_URL)
 
 # 建立 Session
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
